@@ -1,20 +1,24 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import React from 'react';
-import router from './router';
-import {auth} from '@screens/auth';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import React from "react";
+import router from "./router";
+import { auth } from "@screens/auth";
 
 const AuthStack = createNativeStackNavigator();
 
 const AuthNavigation = () => {
   return (
-    <AuthStack.Navigator screenOptions={{headerShown: false}}>
+    <AuthStack.Navigator screenOptions={{ headerShown: false }}>
       <AuthStack.Screen
-        name={router.SIGN_IN_SCREEN}
-        component={auth[router.SIGN_IN_SCREEN]}
+        name={router.IMPORT_WALLET}
+        component={auth[router.IMPORT_WALLET]}
       />
       <AuthStack.Screen
-        name={router.SIGN_UP_SCREEN}
-        component={auth[router.SIGN_UP_SCREEN]}
+        name={router.CREATE_NEW_WALLET}
+        component={auth[router.CREATE_NEW_WALLET]}
+      />
+      <AuthStack.Screen
+        name={router.SECURE_WALLET}
+        component={auth[router.SECURE_WALLET]}
       />
     </AuthStack.Navigator>
   );

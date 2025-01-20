@@ -1,8 +1,10 @@
-import router from '@navigation/router';
-import SignInScreen from './SignInScreen';
-import SignUpScreen from './SignUpScreen';
+import router from "@navigation/router";
+import ImportWalletScreen from "./ImportWallet";
+import CreateNewWalletScreen from "./CreateNewWallet";
+import SecureWalletScreen from "./SecureWallet";
 
 export const auth = {
-  [router.SIGN_IN_SCREEN]: SignInScreen,
-  [router.SIGN_UP_SCREEN]: SignUpScreen,
+  [router.IMPORT_WALLET]: ImportWalletScreen,
+  [router.CREATE_NEW_WALLET]: CreateNewWalletScreen,
+  [router.SECURE_WALLET]: SecureWalletScreen,
 };

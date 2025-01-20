@@ -11,7 +11,7 @@ import {
 import GradientText from "@components/GradientText";
 import LinearGradient from "react-native-linear-gradient";
 import { icons } from "@assets/index";
-import { bottomRoot } from "@navigation/NavigationRef";
+import { authRoot, bottomRoot } from "@navigation/NavigationRef";
 import router from "@navigation/router";
 
 const { width } = Dimensions.get("window");
@@ -63,7 +63,7 @@ const OnboardingScreen = () => {
 
   const handleNext = useCallback(() => {
     if (currentIndex === screens.length - 1) {
-      bottomRoot.navigate(router.HOME_SCREEN);
+      authRoot.navigate(router.IMPORT_WALLET);
     }
   }, [currentIndex]);
 
