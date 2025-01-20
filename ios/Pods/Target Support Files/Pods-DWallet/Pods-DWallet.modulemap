@@ -1,0 +1,6 @@
+module Pods_DWallet {
+  umbrella header "Pods-DWallet-umbrella.h"
+
+  export *
+  module * { export * }
+}
