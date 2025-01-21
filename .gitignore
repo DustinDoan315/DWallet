@@ -4,3 +4,9 @@ yarn.lock
 .env
 ios/.xcode.env.local
 ios/build
+
+# Android-specific build files and caches
+android/app/build/
+android/.gradle/
+android/.idea/
+android/captures/

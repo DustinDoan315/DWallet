@@ -7,42 +7,6 @@ type SignWithFaceIDProps = {
   title?: string;
 };
 
-const enableBiometricAuth = async () => {
-  const rnBiometrics = new ReactNativeBiometrics();
-  const { available, biometryType } = await rnBiometrics.isSensorAvailable();
-
-  if (available) {
-    let alertTitle = "Enable Biometric Authentication";
-    let alertMessage = "Would you like to enable biometric authentication?";
-
-    if (biometryType === BiometryTypes.TouchID) {
-      alertTitle = "Enable Touch ID";
-      alertMessage =
-        "Would you like to enable Touch ID authentication for next time?";
-    } else if (biometryType === BiometryTypes.FaceID) {
-      alertTitle = "Enable Face ID";
-      alertMessage =
-        "Would you like to enable Face ID authentication for next time?";
-    }
-
-    Alert.alert(alertTitle, alertMessage, [
-      {
-        text: "Enable",
-        onPress: async () => {
-          await AsyncStorage.setItem("biometricEnabled", "true");
-          Alert.alert("Success", "Biometric authentication enabled!");
-        },
-      },
-      { text: "Cancel", style: "cancel" },
-    ]);
-  } else {
-    Alert.alert(
-      "Biometrics not supported",
-      "This device does not support biometrics."
-    );
-  }
-};
-
 const SignWithFaceID: React.FC<SignWithFaceIDProps> = ({
   title = "Sign in with Face ID",
 }) => {
