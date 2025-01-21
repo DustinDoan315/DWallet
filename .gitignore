@@ -2,3 +2,5 @@ node_modules
 package-lock.json
 yarn.lock
 .env
+ios/.xcode.env.local
+ios/build
