@@ -71,6 +71,13 @@ export const icons = {
   subscribe_focus: require("./AppIcons/subscribe_focus.png"),
   library: require("./AppIcons/library.png"),
   library_focus: require("./AppIcons/library_focus.png"),
+  progressBar: require("./icons/progressBar.png"),
+  progressLength: require("./icons/progressLength.png"),
+  progressSecond: require("./icons/progressSecond.png"),
+  progressBarFull: require("./icons/progressBarFull.png"),
+  eyeVisible: require("./icons/eyeVisible.png"),
+  eyeVisibleBlue: require("./icons/eyeVisibleBlue.png"),
+  information: require("./icons/information.png"),
 
   // common img
   food_1: require("./icons/food_1.png"),

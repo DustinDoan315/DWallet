@@ -7,15 +7,19 @@ import {
   StyleSheet,
   Alert,
   AppState,
+  FlatList,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { width } from "@utils/response";
 import LinearGradient from "react-native-linear-gradient";
 import { icons } from "@assets/index";
+import { generateSeedPhrase } from "@utils/helper";
+import HeaderProgressBar from "@components/HeaderProgressBar";
+import router from "@navigation/router";
+import { authRoot } from "@navigation/NavigationRef";
 
 const SecureWalletScreen = () => {
-  const navigation = useNavigation();
   const [appState, setAppState] = useState<string>("active");
+  const [seedPhases, setSeedPhases] = useState<string[]>([]);
 
   useEffect(() => {
     const appStateListener = AppState.addEventListener(
@@ -30,16 +34,26 @@ const SecureWalletScreen = () => {
     };
   }, []);
 
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
-  const handleSeedPhrasePress = () => {
+  const handleSeedPhrasePress = async () => {
     Alert.alert("Seed Phrase", "This is your Seed Phrase. Keep it safe!");
+    const seedPhrase = await generateSeedPhrase();
+
+    if (seedPhrase) {
+      console.log("Your seed phrase:", seedPhrase.split(" "));
+      setSeedPhases(seedPhrase.split(" "));
+    }
   };
 
   const handleStartPress = () => {
-    Alert.alert("Start", "You can begin the secure wallet process.");
+    authRoot.navigate(router.SECURE_WALLET_SECOND);
+  };
+
+  const _renderSeedPhrases = ({ item, index }: any) => {
+    return (
+      <View style={styles.seedPhraseContainer} key={index}>
+        <Text style={styles.seedPhraseText}>{`${index}. ${item}`}</Text>
+      </View>
+    );
   };
 
   return (
@@ -57,11 +71,7 @@ const SecureWalletScreen = () => {
       ) : (
         <View style={styles.container}>
           {/* Header Section */}
-          <View style={styles.header}>
-            <Pressable onPress={handleGoBack} style={styles.backButton}>
-              <Image style={styles.backButtonImage} source={icons.arrow_back} />
-            </Pressable>
-          </View>
+          <HeaderProgressBar icon={icons.progressBar} />
 
           {/* Content Section */}
           <View style={styles.content}>
@@ -85,6 +95,13 @@ const SecureWalletScreen = () => {
               </Text>
             </View>
           </View>
+
+          <FlatList
+            data={seedPhases}
+            renderItem={_renderSeedPhrases}
+            keyExtractor={(item, index) => index.toString()}
+            style={{ marginTop: 20, paddingHorizontal: 20 }}
+          />
 
           {/* Button Section */}
           <View style={styles.buttonContainer}>
@@ -125,8 +142,8 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   backButtonImage: {
-    width: 56,
-    height: 56,
+    width: 30,
+    height: 30,
   },
   content: {
     width: "100%",
@@ -184,5 +201,14 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     fontSize: 18,
     fontWeight: "bold",
+  },
+  seedPhraseContainer: {
+    backgroundColor: "#202832",
+    padding: 10,
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  seedPhraseText: {
+    color: "#ffffff",
   },
 });

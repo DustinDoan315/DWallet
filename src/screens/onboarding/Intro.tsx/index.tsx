@@ -98,20 +98,27 @@ const OnboardingScreen = () => {
           />
         ))}
       </View>
-      <LinearGradient
-        style={styles.createBtnLinear}
-        colors={
-          currentIndex == 2
-            ? ["#8AD4EC", "#EF96FF", "#FF56A9", "#FFAA6C"]
-            : ["#d3d3d3", "#d3d3d3"]
-        }
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 0 }}
-        locations={[0, 0.22, 0.54, 0.85, 1]}>
-        <Pressable onPress={handleNext} style={styles.createBtn}>
-          <Text style={styles.buttonText}>Create New Wallet</Text>
-        </Pressable>
-      </LinearGradient>
+      <View
+        style={{
+          width: "100%",
+          alignItems: "center",
+          backgroundColor: "#000000",
+        }}>
+        <LinearGradient
+          style={styles.createBtnLinear}
+          colors={
+            currentIndex == 2
+              ? ["#8AD4EC", "#EF96FF", "#FF56A9", "#FFAA6C"]
+              : ["#d3d3d3", "#d3d3d3"]
+          }
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 0 }}
+          locations={[0, 0.22, 0.54, 0.85, 1]}>
+          <Pressable onPress={handleNext} style={styles.createBtn}>
+            <Text style={styles.buttonText}>Create New Wallet</Text>
+          </Pressable>
+        </LinearGradient>
+      </View>
     </View>
   );
 };

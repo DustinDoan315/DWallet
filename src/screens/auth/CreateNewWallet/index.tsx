@@ -62,10 +62,7 @@ const CreateNewWalletScreen = () => {
         <Pressable onPress={handleGoBack} style={styles.backButton}>
           <Image style={styles.backButtonImage} source={icons.arrow_back} />
         </Pressable>
-        {/* <Image
-          style={styles.progressBar}
-          source={require("@/assets/icons/progressBar.png")}
-        /> */}
+        <Image style={styles.progressBar} source={icons.progressBar} />
       </View>
 
       <View style={styles.intro}>
@@ -179,8 +176,8 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   backButtonImage: {
-    width: 56,
-    height: 56,
+    width: 30,
+    height: 30,
   },
   progressBar: {
     width: "75%",

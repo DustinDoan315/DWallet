@@ -44,7 +44,7 @@ export const formatTime = (time: number) => {
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
 
-const storePassword = async (password: string) => {
+export const storePassword = async (password: string) => {
   try {
     // Store the password with a service name, making it identifiable
     await Keychain.setGenericPassword("walletPassword", password, {
@@ -56,18 +56,18 @@ const storePassword = async (password: string) => {
   }
 };
 
-const generateSeedPhrase = () => {
+export const generateSeedPhrase = async () => {
   try {
-    const seedPhrase = bip39.generateMnemonic();
-    console.log("Seed Phrase generated:", seedPhrase);
-    return seedPhrase;
+    const mnemonic = bip39.generateMnemonic();
+    console.log("Generated Seed Phrase:", mnemonic);
+    return mnemonic;
   } catch (error) {
-    console.error("Failed to generate seed phrase: ", error);
+    console.error("Failed to generate seed phrase:", error);
     return null;
   }
 };
 
-const retrievePassword = async () => {
+export const retrievePassword = async () => {
   try {
     const credentials = await Keychain.getGenericPassword({
       service: "crypto-wallet",
@@ -87,7 +87,7 @@ const retrievePassword = async () => {
 };
 
 // Create a wallet from the seed phrase and password
-const createWalletFromSeed = async (seedPhrase: any) => {
+export const createWalletFromSeed = async (seedPhrase: any) => {
   try {
     // Generate a wallet from the seed phrase
     const wallet = HDNodeWallet.fromMnemonic(seedPhrase);

@@ -1,5 +1,6 @@
 import GradientText from "./GradientText";
 import Header from "./Header";
+import HeaderProgressBar from "./HeaderProgressBar";
 import SearchBar from "./SearchBar";
 import Explore from "./Explore";
 import ProgressBar from "./ProgressBar";
@@ -28,4 +29,5 @@ export {
   ChannelInfo,
   ListChannelAvatar,
   GradientText,
+  HeaderProgressBar,
 };
