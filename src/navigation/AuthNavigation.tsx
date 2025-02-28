@@ -21,16 +21,20 @@ const AuthNavigation = () => {
         component={auth[router.SECURE_WALLET]}
       />
       <AuthStack.Screen
-        name={router.SECURE_WALLET_SECOND}
-        component={auth[router.SECURE_WALLET_SECOND]}
+        name={router.SECURE_WALLET_INFO}
+        component={auth[router.SECURE_WALLET_INFO]}
       />
       <AuthStack.Screen
-        name={router.SECURE_WALLET_THIRD}
-        component={auth[router.SECURE_WALLET_THIRD]}
+        name={router.SECURE_WALLET_GEN}
+        component={auth[router.SECURE_WALLET_GEN]}
       />
       <AuthStack.Screen
-        name={router.SECURE_WALLET_FINAL}
-        component={auth[router.SECURE_WALLET_FINAL]}
+        name={router.SECURE_WALLET_VALID}
+        component={auth[router.SECURE_WALLET_VALID]}
+      />
+      <AuthStack.Screen
+        name={router.SECURE_WALLET_SUCCESS}
+        component={auth[router.SECURE_WALLET_SUCCESS]}
       />
     </AuthStack.Navigator>
   );

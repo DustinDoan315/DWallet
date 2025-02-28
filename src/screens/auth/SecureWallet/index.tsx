@@ -45,7 +45,7 @@ const SecureWalletScreen = () => {
   };
 
   const handleStartPress = () => {
-    authRoot.navigate(router.SECURE_WALLET_SECOND);
+    authRoot.navigate(router.SECURE_WALLET_INFO);
   };
 
   const _renderSeedPhrases = ({ item, index }: any) => {

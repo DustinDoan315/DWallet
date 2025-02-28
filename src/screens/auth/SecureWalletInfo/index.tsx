@@ -14,7 +14,7 @@ import HeaderProgressBar from "@components/HeaderProgressBar";
 import router from "@navigation/router";
 import { authRoot } from "@navigation/NavigationRef";
 
-const SecureWalletSecondStepScreen = () => {
+const SecureWalletInfoScreen = () => {
   const [appState, setAppState] = useState<string>(AppState.currentState);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const SecureWalletSecondStepScreen = () => {
   }, []);
 
   const handleStartPress = () => {
-    authRoot.navigate(router.SECURE_WALLET_THIRD);
+    authRoot.navigate(router.SECURE_WALLET_GEN);
   };
 
   if (appState !== "active") {
@@ -107,14 +107,13 @@ const SecureWalletSecondStepScreen = () => {
   );
 };
 
-export default SecureWalletSecondStepScreen;
+export default SecureWalletInfoScreen;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#080A0B",
     paddingVertical: 10,
-    paddingHorizontal: 12,
   },
   inactiveState: {
     flex: 1,
@@ -122,6 +121,7 @@ const styles = StyleSheet.create({
   },
   titleSection: {
     marginVertical: 20,
+    marginHorizontal: 12,
   },
   titleRow: {
     flexDirection: "row",
@@ -139,9 +139,11 @@ const styles = StyleSheet.create({
   highlight: {
     color: "#4A90E2",
     fontWeight: "bold",
+    fontSize: 18,
   },
   content: {
     marginTop: 20,
+    marginHorizontal: 12,
   },
   description: {
     fontSize: 16,
@@ -156,6 +158,7 @@ const styles = StyleSheet.create({
     bottom: 12,
     width: "100%",
     paddingHorizontal: 20,
+    alignSelf: "center",
   },
   createBtnLinear: {
     borderRadius: 80,

@@ -15,6 +15,11 @@ const RootStack = () => {
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen
+          name={router.BOTTOM_NAVIGATION}
+          component={BottomTabNavigation}
+          options={{ gestureEnabled: false }}
+        />
+        <Stack.Screen
           name={router.ONBOARDING_NAVIGATION}
           component={OnboardingNavigation}
           options={{ gestureEnabled: false }}
@@ -24,11 +29,7 @@ const RootStack = () => {
           component={AuthNavigation}
           options={{ gestureEnabled: false }}
         />
-        <Stack.Screen
-          name={router.BOTTOM_NAVIGATION}
-          component={BottomTabNavigation}
-          options={{ gestureEnabled: false }}
-        />
+
         <Stack.Screen
           name={router.COMMON_NAVIGATION}
           component={CommonNavigation}

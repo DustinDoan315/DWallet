@@ -78,6 +78,9 @@ export const icons = {
   eyeVisible: require("./icons/eyeVisible.png"),
   eyeVisibleBlue: require("./icons/eyeVisibleBlue.png"),
   information: require("./icons/information.png"),
+  progress_1: require("./icons/progress_1.png"),
+  progress_2: require("./icons/progress_2.png"),
+  progress_3: require("./icons/progress_3.png"),
 
   // common img
   food_1: require("./icons/food_1.png"),
@@ -87,6 +90,7 @@ export const icons = {
   shield: require("./images/shield.png"),
   wallet: require("./images/wallet.png"),
   candle: require("./images/candle.png"),
+  success: require("./images/success.png"),
 
   //video
   video_1: require("./video/video_1.mp4"),
