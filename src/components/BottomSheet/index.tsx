@@ -1,84 +1,69 @@
-import {color} from '@theme/index';
-import React, {ReactNode, useEffect, useRef} from 'react';
-import {
-  Dimensions,
-  StyleSheet,
-  Text,
-  View,
-  Animated,
-  PanResponder,
-} from 'react-native';
-
-const {height: SCREEN_HEIGHT} = Dimensions.get('window');
-const MAX_HEIGHT = SCREEN_HEIGHT * 0.55;
+import React from "react";
+import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { BlurView } from "@react-native-community/blur";
 
 interface BottomSheetProps {
-  setShowBottomSheet: (isVisible: boolean) => void;
-  children?: ReactNode;
+  setShowBottomSheet: (visible: boolean) => void;
+  children: React.ReactNode;
 }
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
   setShowBottomSheet,
   children,
 }) => {
-  const translateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
-
-  const panResponder = useRef(
-    PanResponder.create({
-      onMoveShouldSetPanResponder: (_, gestureState) =>
-        Math.abs(gestureState.dy) > 5,
-      onPanResponderRelease: (_, gestureState) => {
-        if (gestureState.dy > 0) {
-          Animated.spring(translateY, {
-            toValue: SCREEN_HEIGHT,
-            useNativeDriver: true,
-          }).start(() => setShowBottomSheet(false));
-        }
-      },
-    }),
-  ).current;
-
-  useEffect(() => {
-    Animated.spring(translateY, {
-      toValue: SCREEN_HEIGHT - MAX_HEIGHT,
-      useNativeDriver: true,
-    }).start();
-  }, [translateY]);
-
   return (
-    <Animated.View
-      {...panResponder.panHandlers}
-      style={[styles.container, {transform: [{translateY}]}]}>
-      <View style={styles.line} />
-      {children}
-    </Animated.View>
+    <Modal transparent visible={!!children} animationType="slide">
+      <TouchableOpacity
+        style={styles.overlay}
+        activeOpacity={1}
+        onPress={() => setShowBottomSheet(false)}>
+        {/* Blur Effect */}
+        <BlurView
+          style={StyleSheet.absoluteFill}
+          blurType="light"
+          blurAmount={10}
+        />
+
+        <View style={styles.content} onStartShouldSetResponder={() => true}>
+          {/* Ensure content is wrapped in <Text> if it's a string */}
+          {typeof children === "string" ? <Text>{children}</Text> : children}
+          <TouchableOpacity
+            onPress={() => setShowBottomSheet(false)}
+            style={styles.closeButton}>
+            <Text style={styles.closeText}>Close</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableOpacity>
+    </Modal>
   );
 };
 
+export default BottomSheet;
+
 const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    minHeight: MAX_HEIGHT,
-    backgroundColor: color.dark_light_1,
-    position: 'absolute',
-    top: 0,
-    borderRadius: 25,
-    paddingHorizontal: 10,
-    zIndex: 1200,
+  overlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
-  line: {
-    width: 75,
-    height: 4,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    alignSelf: 'center',
-    marginVertical: 14,
+  content: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    padding: 20,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    zIndex: 10,
   },
-  text: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
+  closeButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: "#d9534f",
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  closeText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });
-
-export default BottomSheet;

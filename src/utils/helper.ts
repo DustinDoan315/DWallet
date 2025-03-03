@@ -24,9 +24,9 @@ export const screenName = {
 export const getIcon = (name: string, focused: boolean) => {
   switch (name) {
     case screenName.home:
-      return focused ? icons.home_focus : icons.home;
+      return focused ? icons.wallet : icons.wallet;
     case screenName.short:
-      return focused ? icons.short_focus : icons.short;
+      return focused ? icons.short_focus : icons.settings;
     case screenName.subscription:
       return focused ? icons.subscribe_focus : icons.subscribe;
     case screenName.library:
@@ -34,7 +34,7 @@ export const getIcon = (name: string, focused: boolean) => {
     case screenName.create:
       return icons.create;
     default:
-      return icons.library;
+      return icons.settings;
   }
 };
 

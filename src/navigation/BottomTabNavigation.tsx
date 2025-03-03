@@ -1,17 +1,17 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/no-unstable-nested-components */
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import React, {useState} from 'react';
-import {Image, Pressable, StyleSheet, Text} from 'react-native';
+import React, { useState } from "react";
+import { Image, Pressable, StyleSheet, Text } from "react-native";
 
-import router from './router';
-import {bottom} from '@screens/bottom';
-import {color} from '@theme/index';
-import {getIcon, screenName} from '@utils/helper';
-import BottomSheet from '@components/BottomSheet';
-import Create from '@components/Create';
+import router from "./router";
+import { bottom } from "@screens/bottom";
+import { color } from "@theme/index";
+import { getIcon, screenName } from "@utils/helper";
+import BottomSheet from "@components/BottomSheet";
+import Create from "@components/Create";
 const Tab = createBottomTabNavigator();
 
 const TabButton: React.FC<
@@ -21,12 +21,12 @@ const TabButton: React.FC<
       accessibilityState: any;
     }
   | any
-> = ({name, onPress, accessibilityState, setShowBottomSheet}) => {
+> = ({ name, onPress, accessibilityState, setShowBottomSheet }) => {
   const focused = accessibilityState?.selected;
 
   return (
     <Pressable
-      testID={'bottomBarContainer'}
+      testID={"bottomBarContainer"}
       onPress={
         name !== screenName.create ? onPress : () => setShowBottomSheet(true)
       }
@@ -34,20 +34,19 @@ const TabButton: React.FC<
       <Image
         source={getIcon(name, focused)}
         style={{
-          width: name === screenName.create ? 38 : 24,
-          height: name === screenName.create ? 38 : 24,
+          width: 24,
+          height: 24,
         }}
       />
-      {name !== screenName.create && (
-        <Text
-          style={{
-            color: color.white,
-            marginTop: 5,
-            fontSize: 10,
-          }}>
-          {name}
-        </Text>
-      )}
+
+      <Text
+        style={{
+          color: color.white,
+          marginTop: 5,
+          fontSize: 10,
+        }}>
+        {name}
+      </Text>
     </Pressable>
   );
 };
@@ -94,7 +93,7 @@ const BottomContainer = () => {
           }}
         />
         <Tab.Screen
-          name={'3'}
+          name={"3"}
           component={bottom[router.SHORT_SCREEN]}
           options={{
             tabBarShowLabel: false,
@@ -142,9 +141,10 @@ const BottomContainer = () => {
 
 const styles = StyleSheet.create({
   container: {
+    zIndex: 1,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
