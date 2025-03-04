@@ -1,5 +1,12 @@
-import React from "react";
-import { View, Modal, Text, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import {
+  View,
+  Modal,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Keyboard,
+} from "react-native";
 import { BlurView } from "@react-native-community/blur";
 
 interface BottomSheetProps {
@@ -11,6 +18,22 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   setShowBottomSheet,
   children,
 }) => {
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const keyboardShowListener = Keyboard.addListener("keyboardDidShow", () =>
+      setKeyboardVisible(true)
+    );
+    const keyboardHideListener = Keyboard.addListener("keyboardDidHide", () =>
+      setKeyboardVisible(false)
+    );
+
+    return () => {
+      keyboardShowListener.remove();
+      keyboardHideListener.remove();
+    };
+  }, []);
+
   return (
     <Modal transparent visible={!!children} animationType="slide">
       <TouchableOpacity
@@ -24,7 +47,9 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
           blurAmount={10}
         />
 
-        <View style={styles.content} onStartShouldSetResponder={() => true}>
+        <View
+          style={[styles.content, { bottom: keyboardVisible ? 320 : 0 }]}
+          onStartShouldSetResponder={() => true}>
           {React.isValidElement(children) ? (
             children
           ) : (
@@ -46,7 +71,6 @@ const styles = StyleSheet.create({
   },
   content: {
     position: "absolute",
-    bottom: 0,
     width: "100%",
     borderRadius: 10,
     zIndex: 10,
