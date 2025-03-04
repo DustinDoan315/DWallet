@@ -25,7 +25,7 @@ const App = () => {
               <BottomSheetProvider>
                 <StatusBar barStyle={"light-content"} />
                 <RootStack />
-              </BottomSheetProvider>{" "}
+              </BottomSheetProvider>
             </PersistGate>
           </Provider>
         </SafeAreaView>

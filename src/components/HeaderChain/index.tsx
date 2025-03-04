@@ -1,8 +1,13 @@
 import React, { memo } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { icons } from "@assets/index";
+import { useBottomSheet } from "@navigation/BottomSheetProvider";
+import AddToken from "@components/AddToken";
+import AddAccount from "@components/AddAccount";
 
 const HeaderChain = () => {
+  const { showBottomSheet } = useBottomSheet();
+
   const handleQr = () => {
     console.log("QR code pressed");
   };
@@ -16,7 +21,9 @@ const HeaderChain = () => {
           resizeMode="cover"
           style={styles.avatar}
         />
-        <Pressable onPress={handleQr} style={styles.qrButton}>
+        <Pressable
+          onPress={() => showBottomSheet(<AddAccount />)}
+          style={styles.qrButton}>
           <Image
             source={icons.qr_code}
             resizeMode="cover"
@@ -28,11 +35,13 @@ const HeaderChain = () => {
       {/* Network Selector */}
       <View style={styles.networkContainer}>
         <Text style={styles.networkText}>Ethereum Main</Text>
-        <Image
-          source={icons.down_arrow}
-          style={styles.downArrow}
-          resizeMode="cover"
-        />
+        <Pressable onPress={() => showBottomSheet(<AddToken />)}>
+          <Image
+            source={icons.down_arrow}
+            style={styles.downArrow}
+            resizeMode="cover"
+          />
+        </Pressable>
       </View>
     </View>
   );
@@ -45,12 +54,13 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "space-between",
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    justifyContent: "center",
+    marginHorizontal: 16,
+    paddingVertical: 20,
   },
   avatarContainer: {
-    position: "relative",
+    position: "absolute",
+    left: 0,
   },
   avatar: {
     width: 50,

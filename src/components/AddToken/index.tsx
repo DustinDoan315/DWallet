@@ -11,7 +11,7 @@ import { color } from "@theme/index";
 import { icons } from "@assets/index";
 import { useBottomSheet } from "@navigation/BottomSheetProvider";
 
-const Create = ({ setShowBottomSheet }: any) => {
+const AddToken = ({ setShowBottomSheet }: any) => {
   const { hideBottomSheet } = useBottomSheet();
 
   const [activityItems, setActivityItems] = useState([
@@ -133,4 +133,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Create;
+export default AddToken;

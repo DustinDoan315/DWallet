@@ -25,13 +25,11 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
         />
 
         <View style={styles.content} onStartShouldSetResponder={() => true}>
-          {/* Ensure content is wrapped in <Text> if it's a string */}
-          {typeof children === "string" ? <Text>{children}</Text> : children}
-          <TouchableOpacity
-            onPress={() => setShowBottomSheet(false)}
-            style={styles.closeButton}>
-            <Text style={styles.closeText}>Close</Text>
-          </TouchableOpacity>
+          {React.isValidElement(children) ? (
+            children
+          ) : (
+            <Text>{String(children)}</Text>
+          )}
         </View>
       </TouchableOpacity>
     </Modal>
@@ -50,20 +48,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    padding: 20,
-    backgroundColor: "#fff",
     borderRadius: 10,
     zIndex: 10,
-  },
-  closeButton: {
-    marginTop: 10,
-    padding: 10,
-    backgroundColor: "#d9534f",
-    borderRadius: 5,
-    alignItems: "center",
-  },
-  closeText: {
-    color: "#fff",
-    fontWeight: "bold",
   },
 });

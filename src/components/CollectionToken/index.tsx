@@ -69,7 +69,7 @@ const CollectionToken: React.FC<Props> = ({ showBottomSheet }) => {
             keyExtractor={(item, index) => index.toString()}
             ListFooterComponent={() => (
               <Pressable
-                onPress={() => showBottomSheet(<Create />)}
+                // onPress={() => showBottomSheet(<Create />)}
                 style={styles.addTokenContainer}>
                 <Image source={icons.create} style={styles.addTokenIcon} />
                 <Text style={styles.addTokenText}>Add Tokens</Text>
