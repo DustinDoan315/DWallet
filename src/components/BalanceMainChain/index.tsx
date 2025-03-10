@@ -9,12 +9,17 @@ import {
 } from "react-native";
 import { icons } from "@assets/index";
 import axios from "axios";
+import { color } from "@theme/index";
+import SentToken from "@components/SentToken";
+import { useBottomSheet } from "@navigation/BottomSheetProvider";
 
 const DEFAULT_BALANCE = "9.2362";
 const DEFAULT_USD_VALUE = "16,815.2362";
 const DEFAULT_CHANGE_PERCENTAGE = "+0.7";
 
-const Balance = () => {
+const BalanceMainChain = () => {
+  const { showBottomSheet } = useBottomSheet();
+
   const [balance, setBalance] = useState<string>(DEFAULT_BALANCE);
   const [usdValue, setUsdValue] = useState<string>(DEFAULT_USD_VALUE);
   const [changePercentage, setChangePercentage] = useState<string>(
@@ -27,10 +32,10 @@ const Balance = () => {
     const fetchBalance = async () => {
       try {
         const response = await axios.get("https://api.example.com/balance");
-        const { ethBalance, usdEquivalent, changePercent } = response.data;
+        const { balance, usdQuivalent, changePercent } = response.data;
 
-        setBalance(ethBalance || DEFAULT_BALANCE);
-        setUsdValue(usdEquivalent || DEFAULT_USD_VALUE);
+        setBalance(balance || DEFAULT_BALANCE);
+        setUsdValue(usdQuivalent || DEFAULT_USD_VALUE);
         setChangePercentage(changePercent || DEFAULT_CHANGE_PERCENTAGE);
       } catch (err) {
         setError("Failed to fetch balance, using default values.");
@@ -48,6 +53,10 @@ const Balance = () => {
     );
   }
 
+  const handleSend = () => {
+    showBottomSheet(<SentToken />);
+  };
+
   return (
     <View style={styles.container}>
       {/* Balance Text */}
@@ -61,25 +70,33 @@ const Balance = () => {
 
       {/* Action Buttons */}
       <View style={styles.actionsContainer}>
-        <ActionButton title="Send" icon={icons.cart} />
-        <ActionButton title="Receive" icon={icons.cart} />
-        <ActionButton title="Buy" icon={icons.cart} />
+        <ActionButton onPress={handleSend} title="Send" icon={icons.send} />
+        <ActionButton title="Receive" icon={icons.send} />
+        <ActionButton title="Buy" icon={icons.send} />
       </View>
 
       {/* Error Message (If API Failed) */}
-      {error && <Text style={styles.errorText}>{error}</Text>}
+      {/* {error && <Text style={styles.errorText}>{error}</Text>} */}
     </View>
   );
 };
 
-const ActionButton = ({ title, icon }: { title: string; icon: any }) => (
-  <Pressable style={styles.actionButton}>
+const ActionButton = ({
+  title,
+  icon,
+  onPress,
+}: {
+  title: string;
+  icon: any;
+  onPress?: any;
+}) => (
+  <Pressable onPress={onPress} style={styles.actionButton}>
     <Image source={icon} style={styles.icon} />
     <Text style={styles.buttonText}>{title}</Text>
   </Pressable>
 );
 
-export default memo(Balance);
+export default memo(BalanceMainChain);
 
 const styles = StyleSheet.create({
   container: {
@@ -88,7 +105,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
   balanceText: {
-    fontSize: 16,
+    fontSize: 32,
     fontWeight: "bold",
     textAlign: "center",
     color: "white",
@@ -97,7 +114,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 10,
+    marginVertical: 15,
   },
   usdText: {
     fontSize: 14,
@@ -111,7 +128,7 @@ const styles = StyleSheet.create({
   actionsContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginTop: 10,
+    marginTop: 12,
   },
   actionButton: {
     flexDirection: "row",
@@ -120,11 +137,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 10,
-    backgroundColor: "lightgray",
+    backgroundColor: color.dark_light_2,
   },
   icon: {
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
     marginRight: 5,
   },
   buttonText: {

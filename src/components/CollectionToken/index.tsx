@@ -9,6 +9,9 @@ import {
 } from "react-native";
 import { icons } from "@assets/index";
 import Create from "@components/Create";
+import { commonRoot } from "@navigation/NavigationRef";
+import router from "@navigation/router";
+import { FakeListAssets } from "@utils/fake";
 
 const tabItems = ["token", "collectibles"] as const;
 
@@ -24,19 +27,35 @@ const CollectionToken: React.FC<Props> = ({ showBottomSheet }) => {
     setActivePage(page);
   }, []);
 
+  const moveTransactionHistoryScreen = (item: any) => {
+    console.log("---",item);
+    
+    commonRoot.navigate(router.TRANSACTION_HISTORY, { item: item });
+  };
+
   const renderItem = useCallback(
-    ({ item }: { item: number }) => (
-      <View style={styles.itemContainer}>
-        <Image source={icons.bnb} style={styles.coinIcon} resizeMode="cover" />
+    ({ item, index }: { item: any; index: number }) => (
+      <Pressable
+        onPress={() => moveTransactionHistoryScreen(item)}
+        style={styles.itemContainer}>
+        <Image source={item.img} style={styles.coinIcon} resizeMode="cover" />
         <View style={styles.coinInfo}>
-          <Text style={styles.coinName}>Binance Coin</Text>
+          <Text style={styles.coinName}>{item.name}</Text>
           <View style={styles.coinPriceContainer}>
-            <Text style={styles.coinPrice}>$226.69</Text>
-            <Text style={styles.coinChange}>+2%</Text>
+            <Text style={styles.coinPrice}>${item.price}</Text>
+            <Text
+              style={[
+                styles.coinChange,
+                { color: item.profit > 0 ? "green" : "red" },
+              ]}>
+              {`${item?.profit > 0 ? `+${item.profit}` : `${item.profit}`}%`}
+            </Text>
           </View>
         </View>
-        <Text style={styles.coinBalance}>19.2371 BNB</Text>
-      </View>
+        <Text style={styles.coinBalance}>
+          {`${item.balance} ${item.token}`}{" "}
+        </Text>
+      </Pressable>
     ),
     []
   );
@@ -64,7 +83,7 @@ const CollectionToken: React.FC<Props> = ({ showBottomSheet }) => {
       <View style={styles.contentContainer}>
         {activePage === "token" ? (
           <FlatList
-            data={[1, 2, 3, 4]}
+            data={FakeListAssets}
             renderItem={renderItem}
             keyExtractor={(item, index) => index.toString()}
             ListFooterComponent={() => (

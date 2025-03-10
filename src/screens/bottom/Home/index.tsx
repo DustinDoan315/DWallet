@@ -2,7 +2,7 @@ import { View } from "react-native";
 import React from "react";
 
 import HeaderChain from "@components/HeaderChain";
-import Balance from "@components/Balance";
+import Balance from "@components/BalanceMainChain";
 import CollectionToken from "@components/CollectionToken";
 import { useBottomSheet } from "@navigation/BottomSheetProvider";
 

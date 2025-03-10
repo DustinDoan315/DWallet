@@ -242,6 +242,7 @@ const styles = StyleSheet.create({
   importButton: {
     padding: 15,
     alignItems: "center",
+    borderRadius: 5,
     backgroundColor: "#337ab7",
     marginTop: 10,
   },

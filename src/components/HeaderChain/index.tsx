@@ -4,6 +4,7 @@ import { icons } from "@assets/index";
 import { useBottomSheet } from "@navigation/BottomSheetProvider";
 import AddToken from "@components/AddToken";
 import AddAccount from "@components/AddAccount";
+import { color } from "@theme/index";
 
 const HeaderChain = () => {
   const { showBottomSheet } = useBottomSheet();
@@ -69,15 +70,15 @@ const styles = StyleSheet.create({
   },
   qrButton: {
     position: "absolute",
-    right: 0,
-    bottom: 0,
-    backgroundColor: "white",
+    right: -10,
+    bottom: -5,
+    backgroundColor: color.dark_light_1,
     borderRadius: 10,
     padding: 4,
   },
   qrIcon: {
-    width: 16,
-    height: 16,
+    width: 18,
+    height: 18,
   },
   networkContainer: {
     flexDirection: "row",
