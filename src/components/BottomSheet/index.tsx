@@ -48,7 +48,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
         />
 
         <View
-          style={[styles.content, { bottom: keyboardVisible ? 320 : 0 }]}
+          style={[styles.content, { bottom: keyboardVisible ? 290 : 0 }]}
           onStartShouldSetResponder={() => true}>
           {React.isValidElement(children) ? (
             children
