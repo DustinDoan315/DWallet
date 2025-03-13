@@ -8,7 +8,6 @@ import RootStack from "@navigation/RootStack";
 import { persistor, store } from "@redux/store";
 import { color } from "./theme";
 import SplashScreen from "react-native-splash-screen";
-import BottomSheet from "@components/BottomSheet";
 import { BottomSheetProvider } from "@navigation/BottomSheetProvider";
 
 const App = () => {

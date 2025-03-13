@@ -10,8 +10,6 @@ import router from "./router";
 import { bottom } from "@screens/bottom";
 import { color } from "@theme/index";
 import { getIcon, screenName } from "@utils/helper";
-import BottomSheet from "@components/BottomSheet";
-import Create from "@components/Create";
 const Tab = createBottomTabNavigator();
 
 const TabButton: React.FC<
@@ -21,15 +19,13 @@ const TabButton: React.FC<
       accessibilityState: any;
     }
   | any
-> = ({ name, onPress, accessibilityState, setShowBottomSheet }) => {
+> = ({ name, onPress, accessibilityState }) => {
   const focused = accessibilityState?.selected;
 
   return (
     <Pressable
       testID={"bottomBarContainer"}
-      onPress={
-        name !== screenName.create ? onPress : () => setShowBottomSheet(true)
-      }
+      onPress={onPress}
       style={styles.container}>
       <Image
         source={getIcon(name, focused)}
@@ -53,8 +49,6 @@ const TabButton: React.FC<
 const NullComponent = () => null;
 
 const BottomContainer = () => {
-  const [showBottomSheet, setShowBottomSheet] = useState<boolean>(false);
-
   return (
     <>
       <Tab.Navigator
@@ -80,61 +74,7 @@ const BottomContainer = () => {
             headerLeft: NullComponent,
           }}
         />
-
-        <Tab.Screen
-          name={router.SHORT_SCREEN}
-          component={bottom[router.SHORT_SCREEN]}
-          options={{
-            tabBarShowLabel: false,
-            tabBarButton: (props: any) => (
-              <TabButton {...props} name={screenName.short} />
-            ),
-            headerLeft: NullComponent,
-          }}
-        />
-        <Tab.Screen
-          name={"3"}
-          component={bottom[router.SHORT_SCREEN]}
-          options={{
-            tabBarShowLabel: false,
-            tabBarButton: (props: any) => (
-              <TabButton
-                {...props}
-                name={screenName.create}
-                setShowBottomSheet={setShowBottomSheet}
-              />
-            ),
-            headerLeft: NullComponent,
-          }}
-        />
-        <Tab.Screen
-          name={router.SUBSCRIPTION}
-          component={bottom[router.SUBSCRIPTION]}
-          options={{
-            tabBarShowLabel: false,
-            tabBarButton: (props: any) => (
-              <TabButton {...props} name={screenName.subscription} />
-            ),
-            headerLeft: NullComponent,
-          }}
-        />
-        <Tab.Screen
-          name={router.LIBRARY}
-          component={bottom[router.LIBRARY]}
-          options={{
-            tabBarShowLabel: false,
-            tabBarButton: (props: any) => (
-              <TabButton {...props} name={screenName.library} />
-            ),
-            headerLeft: NullComponent,
-          }}
-        />
       </Tab.Navigator>
-      {showBottomSheet && (
-        <BottomSheet setShowBottomSheet={setShowBottomSheet}>
-          <Create setShowBottomSheet={setShowBottomSheet} />
-        </BottomSheet>
-      )}
     </>
   );
 };
