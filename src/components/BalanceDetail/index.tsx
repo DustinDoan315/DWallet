@@ -30,7 +30,7 @@ interface BalanceDetailProps {
 }
 
 const BalanceDetail: React.FC<BalanceDetailProps> = ({ data }) => {
-const { showBottomSheet } = useBottomSheet();
+  const { showBottomSheet } = useBottomSheet();
 
   const [balance, setBalance] = useState<string | number>(DEFAULT_BALANCE);
   const [usdValue, setUsdValue] = useState<string | number>(DEFAULT_USD_VALUE);
@@ -104,39 +104,48 @@ const { showBottomSheet } = useBottomSheet();
       {/* Action Buttons */}
       <View style={styles.actionsContainer}>
         <MemoizedActionButton title="Send" icon={icons.send} />
-        <MemoizedActionButton title="Receive" icon={icons.send} />
+        <MemoizedActionButton title="Receive" icon={icons.received} />
       </View>
 
       <View style={{ width: "100%" }}>
-      <FlatList
-      data={mockTransactions}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <Pressable onPress={() => showBottomSheet(<TransactionDetail data={item} />)} style={styles.transactionContainer}>
-          <Text style={styles.dateText}>{item.date}</Text>
-          <View style={styles.transactionRow}>
-            {/* Left Side - Icon and Status */}
-            <Image source={icons.send} style={styles.icon} />
-            <View style={styles.transactionInfo}>
-              <Text style={styles.transactionType}>{`${item.type} ${item.token}`}</Text>
-              <Text
-                style={[
-                  styles.status,
-                  { color: item.status === "Confirmed" ? "green" : "red" },
-                ]}
-              >
-                {item.status}
-              </Text>
-            </View>
-            {/* Right Side - Amount and Value */}
-            <View style={styles.amountContainer}>
-              <Text style={styles.amountText}>{`${item.amount} ${item.token}`}</Text>
-              <Text style={styles.valueText}>{`$ ${item.value.toFixed(3)}`}</Text>
-            </View>
-          </View>
-        </Pressable>
-      )}
-    />
+        <FlatList
+          data={mockTransactions}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <Pressable
+              onPress={() => showBottomSheet(<TransactionDetail data={item} />)}
+              style={styles.transactionContainer}>
+              <Text style={styles.dateText}>{item.date}</Text>
+              <View style={styles.transactionRow}>
+                {/* Left Side - Icon and Status */}
+                <Image source={icons.send} style={styles.icon} />
+                <View style={styles.transactionInfo}>
+                  <Text
+                    style={
+                      styles.transactionType
+                    }>{`${item.type} ${item.token}`}</Text>
+                  <Text
+                    style={[
+                      styles.status,
+                      { color: item.status === "Confirmed" ? "green" : "red" },
+                    ]}>
+                    {item.status}
+                  </Text>
+                </View>
+                {/* Right Side - Amount and Value */}
+                <View style={styles.amountContainer}>
+                  <Text
+                    style={
+                      styles.amountText
+                    }>{`${item.amount} ${item.token}`}</Text>
+                  <Text style={styles.valueText}>{`$ ${item.value.toFixed(
+                    3
+                  )}`}</Text>
+                </View>
+              </View>
+            </Pressable>
+          )}
+        />
       </View>
     </View>
   );

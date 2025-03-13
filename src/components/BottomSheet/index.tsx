@@ -8,6 +8,8 @@ import {
   Keyboard,
 } from "react-native";
 import { BlurView } from "@react-native-community/blur";
+import { useDispatch } from "react-redux";
+import { clearToken } from "@redux/token/tokenSlice";
 
 interface BottomSheetProps {
   setShowBottomSheet: (visible: boolean) => void;
@@ -18,6 +20,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   setShowBottomSheet,
   children,
 }) => {
+  const dispatch = useDispatch();
   const [keyboardVisible, setKeyboardVisible] = useState(false);
 
   useEffect(() => {
@@ -34,12 +37,17 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
     };
   }, []);
 
+  const hideSheet = () => {
+    setShowBottomSheet(false);
+    dispatch(clearToken());
+  };
+
   return (
     <Modal transparent visible={!!children} animationType="slide">
       <TouchableOpacity
         style={styles.overlay}
         activeOpacity={1}
-        onPress={() => setShowBottomSheet(false)}>
+        onPress={hideSheet}>
         {/* Blur Effect */}
         <BlurView
           style={StyleSheet.absoluteFill}

@@ -81,6 +81,10 @@ export const icons = {
   progress_1: require("./icons/progress_1.png"),
   progress_2: require("./icons/progress_2.png"),
   progress_3: require("./icons/progress_3.png"),
+  setting: require("./icons/setting.png"),
+  wallet: require("./icons/wallet.png"),
+  swap: require("./icons/swap.png"),
+  received: require("./icons/received.png"),
 
   // common img
   food_1: require("./icons/food_1.png"),
@@ -88,12 +92,6 @@ export const icons = {
   food_3: require("./icons/food_3.png"),
   rocket: require("./images/rocket.png"),
   shield: require("./images/shield.png"),
-  wallet: require("./images/wallet.png"),
   candle: require("./images/candle.png"),
   success: require("./images/success.png"),
-
-  //video
-  video_1: require("./video/video_1.mp4"),
-  short_1: require("./video/short_1.mp4"),
-  short_2: require("./video/short_2.mp4"),
 };

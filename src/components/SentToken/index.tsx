@@ -17,6 +17,7 @@ import LinearGradient from "react-native-linear-gradient";
 import Amount from "./components/Amount";
 import { useSelector } from "react-redux";
 import { RootState } from "@redux/store";
+import EditFee from "./components/EditFee";
 
 const SentToken = ({ setShowBottomSheet }: any) => {
   const tokenData = useSelector((state: RootState) => state.token);
@@ -27,6 +28,7 @@ const SentToken = ({ setShowBottomSheet }: any) => {
   const { hideBottomSheet } = useBottomSheet();
   const [isShowListAccount, setIsShowListAccount] = useState(false);
   const [isSend, setIsSend] = useState(false);
+  const [isEditFee, setIsEditFee] = useState(false);
   const [account, setAccount] = useState(activeAccount);
   const [receiveAddress, setReceiveAddress] = useState<string>("");
   const [isShowAmountSheet, setIsShowAmountSheet] = useState<boolean>(false);
@@ -44,6 +46,10 @@ const SentToken = ({ setShowBottomSheet }: any) => {
   const handleNextPress = () => {
     setIsSend(true);
     setIsShowAmountSheet(true);
+  };
+
+  const handleEditFee = () => {
+    setIsEditFee(true);
   };
 
   const renderAccountItem = useCallback(
@@ -73,6 +79,7 @@ const SentToken = ({ setShowBottomSheet }: any) => {
             onPress={() => {
               setIsSend(false);
               setIsShowAmountSheet(false);
+              setIsEditFee(false);
               setReceiveAddress("");
             }}
             style={styles.backButton}>
@@ -84,6 +91,8 @@ const SentToken = ({ setShowBottomSheet }: any) => {
             ? "Select Account"
             : isShowAmountSheet
             ? "Amount"
+            : isEditFee
+            ? "Edit Network Fee"
             : "Send Token"}
         </Text>
       </View>
@@ -99,6 +108,8 @@ const SentToken = ({ setShowBottomSheet }: any) => {
           setIsSend={setIsSend}
           setIsShowAmountSheet={setIsShowAmountSheet}
         />
+      ) : isEditFee ? (
+        <EditFee />
       ) : (
         <>
           {/* Main Account Section */}
@@ -109,45 +120,23 @@ const SentToken = ({ setShowBottomSheet }: any) => {
             <Image source={icons.avatar_2} style={styles.avatarLarge} />
             <View style={styles.accountInfo}>
               <Text style={styles.accountName}>{account?.name}</Text>
-              <Text style={styles.balance}>{account?.balance}</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginTop: 7,
+                }}>
+                <Text style={styles.balance}>Balance: </Text>
+                <Text
+                  style={
+                    styles.balance
+                  }>{`${account?.balance} ${account?.token}`}</Text>
+              </View>
             </View>
-            <Image source={icons.arrow_back} style={styles.arrowBack} />
+            {!tokenData.tokenType && (
+              <Image source={icons.arrow_back} style={styles.arrowBack} />
+            )}
           </TouchableOpacity>
-
-          {/* Amount Container */}
-          <View style={styles.amountContainer}>
-            <View>
-              <View style={styles.rowStyle}>
-                <Text style={styles.boldText}>Amount</Text>
-                <Text
-                  style={
-                    styles.boldText
-                  }>{`${tokenData.tokenValue} ${tokenData.tokenType}`}</Text>
-              </View>
-
-              <View style={styles.fee}>
-                <Text style={styles.boldText}>Network fee</Text>
-                <Text
-                  style={styles.boldText}>{`0.12 ${tokenData.tokenType}`}</Text>
-              </View>
-            </View>
-
-            <View style={styles.divider} />
-
-            <View style={styles.rowStyle}>
-              <Text style={styles.boldText}>Total Amount</Text>
-              <View style={styles.alignRight}>
-                <Text
-                  style={
-                    styles.boldText
-                  }>{`${tokenData.tokenValue} ${tokenData.tokenType}`}</Text>
-                <Text
-                  style={
-                    styles.secondaryText
-                  }>{`$${tokenData.tokenValue}`}</Text>
-              </View>
-            </View>
-          </View>
 
           {/* Receive Address Input */}
           <Text style={styles.sectionTitle}>To</Text>
@@ -155,7 +144,7 @@ const SentToken = ({ setShowBottomSheet }: any) => {
             style={[
               styles.input,
               {
-                marginBottom: receiveAddress ? 100 : 0,
+                marginBottom: receiveAddress && !tokenData.tokenType ? 100 : 0,
               },
             ]}
             placeholder="Enter or select an address"
@@ -163,6 +152,65 @@ const SentToken = ({ setShowBottomSheet }: any) => {
             value={receiveAddress}
             onChangeText={(text: string) => setReceiveAddress(text)}
           />
+
+          {/* Amount Container */}
+          {tokenData.tokenType && (
+            <View style={styles.amountContainer}>
+              <View>
+                <View style={styles.rowStyle}>
+                  <Text style={styles.boldText}>Amount</Text>
+                  <Text
+                    style={
+                      styles.boldText
+                    }>{`${tokenData.tokenValue} ${tokenData.tokenType}`}</Text>
+                </View>
+
+                <View style={styles.fee}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}>
+                    <Text style={styles.boldText}>Network fee</Text>
+                    <Pressable
+                      onPress={handleEditFee}
+                      style={{
+                        padding: 10,
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          color: color.blue_1,
+                          fontWeight: "bold",
+                        }}>
+                        Edit
+                      </Text>
+                    </Pressable>
+                  </View>
+                  <Text
+                    style={
+                      styles.boldText
+                    }>{`0.12 ${tokenData.tokenType}`}</Text>
+                </View>
+              </View>
+
+              <View style={styles.divider} />
+
+              <View style={styles.rowStyle}>
+                <Text style={styles.boldText}>Total Amount</Text>
+                <View style={styles.alignRight}>
+                  <Text
+                    style={
+                      styles.boldText
+                    }>{`${tokenData.tokenValue} ${tokenData.tokenType}`}</Text>
+                  <Text
+                    style={
+                      styles.secondaryText
+                    }>{`$${tokenData.tokenValue}`}</Text>
+                </View>
+              </View>
+            </View>
+          )}
 
           {receiveAddress.length > 0 ? (
             <View style={styles.buttonContainer}>
@@ -227,6 +275,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.dark_light_2,
     padding: 20,
     borderRadius: 10,
+    marginBottom: 100,
   },
   label: {
     color: color.secondText,

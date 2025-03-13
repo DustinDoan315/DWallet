@@ -88,11 +88,6 @@ const Amount = ({ setIsShowAmountSheet, setIsSend }: any) => {
           style={styles.overlay}
           activeOpacity={1}
           onPress={toggleDropdown}>
-          <BlurView
-            style={StyleSheet.absoluteFill}
-            blurType="light"
-            blurAmount={10}
-          />
           <View style={styles.tokenListContainer}>
             <Text style={styles.tokenHeader}>Select Token</Text>
             <FlatList
@@ -178,7 +173,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     width: "100%",
-    paddingVertical: 10,
+    paddingTop: 10,
+    paddingBottom: 100,
     backgroundColor: color.dark,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,

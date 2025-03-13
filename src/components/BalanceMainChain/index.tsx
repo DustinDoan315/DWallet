@@ -71,7 +71,7 @@ const BalanceMainChain = () => {
       {/* Action Buttons */}
       <View style={styles.actionsContainer}>
         <ActionButton onPress={handleSend} title="Send" icon={icons.send} />
-        <ActionButton title="Receive" icon={icons.send} />
+        <ActionButton title="Receive" icon={icons.received} />
         <ActionButton title="Buy" icon={icons.send} />
       </View>
 

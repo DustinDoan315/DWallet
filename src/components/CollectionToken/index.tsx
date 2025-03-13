@@ -8,7 +8,6 @@ import {
   View,
 } from "react-native";
 import { icons } from "@assets/index";
-import Create from "@components/Create";
 import { commonRoot } from "@navigation/NavigationRef";
 import router from "@navigation/router";
 import { FakeListAssets } from "@utils/fake";
@@ -28,8 +27,8 @@ const CollectionToken: React.FC<Props> = ({ showBottomSheet }) => {
   }, []);
 
   const moveTransactionHistoryScreen = (item: any) => {
-    console.log("---",item);
-    
+    console.log("---", item);
+
     commonRoot.navigate(router.TRANSACTION_HISTORY, { item: item });
   };
 
