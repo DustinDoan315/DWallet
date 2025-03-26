@@ -38,6 +38,7 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^15.11.1",
     "react-native-video": "^6.9.1",
+    "react-native-webview": "^13.13.4",
     "react-redux": "^9.2.0",
     "redux-persist": "^6.0.0",
     "stream": "^0.0.3"
